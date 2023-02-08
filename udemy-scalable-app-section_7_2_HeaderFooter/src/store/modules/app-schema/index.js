@@ -21,6 +21,12 @@ const appSchema = {
     getters: {
         getHomePageComponentsSchema(state) {
             return state.appSchema.pages[0].components
+        },
+        getAppHeaderComponents(state) {
+            return state.appSchema.header.components;
+        },
+        getAppFooterComponents(state) {
+            return state.appSchema.footer.components;
         }
     }
 }

@@ -10,14 +10,15 @@
 </template>
 
 <script>
-import JumbotronComponent from "@/components/jumbotron-component/jumbotron-component.vue";
-import CarouselComponent from "@/components/carousel-component/carousel-component.vue";
-import ReportComponent from "@/components/report-component/report-component.vue";
 import {mapGetters} from "vuex";
 
 export default {
   name: "HomeView",
-  components: {JumbotronComponent, CarouselComponent, ReportComponent},
+  components: {
+    JumbotronComponent: () => import ("@/components/jumbotron-component/jumbotron-component.vue"),
+    CarouselComponent: () => import ("@/components/carousel-component/carousel-component.vue"),
+    ReportComponent: () => import ("@/components/report-component/report-component.vue"),
+  },
   computed:{
     ...mapGetters("appSchema",["getHomePageComponentsSchema"])
   }
