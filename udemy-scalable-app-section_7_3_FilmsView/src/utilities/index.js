@@ -1,7 +1,7 @@
 export const loadWidgets = (widgets, basePath) => {
     return widgets.reduce((current, widget) => ({
         ...current,
-        [widget]: () => import(`@/${basePath}${widget}`)
+        [widget]: () => import(`@/${basePath}${widget}`),
     }), {})
 }
 

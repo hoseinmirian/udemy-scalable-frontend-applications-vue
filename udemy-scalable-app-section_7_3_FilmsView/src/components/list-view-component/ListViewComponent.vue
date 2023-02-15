@@ -1,24 +1,36 @@
 <template>
   <!--  ListViewComponent single responsible component    -->
   <div>
-    <v-progress-circular
-      v-if="loading"
-      indeterminate
-      color="primary"
-    ></v-progress-circular>
     <div v-if="!loading">
-      <product-template v-if="template === 'products'" :data="data" />
+      <component :is="template" :data="data" />
+      <modal-window v-if="false" :data="data" />
+      <jumbotron-component/>
     </div>
   </div>
 </template>
 
 <script>
 import api from "@/data/api";
-import ProductTemplate from "@/components/list-view-component/components/products-template.vue";
+import {loadWidgets} from "@/utilities";
+import JumbotronComponent from "@/components/jumbotron-component/jumbotron-component.vue";
+import LoadingProgressbarComponent from "@/components/loading-progress-component/loading-progressbar-component.vue";
+import ErrorIndicatorComponent from "@/components/error-indicator-component/error-indicator-component.vue";
+const lazyComponents = ["products-template","users-template"]
+// add as much as you want different template component. one of them based on the template prop always loads lazily
+
+const ModalWindow = () => ({
+  component: import('@/components/list-view-component/components/products-template.vue'),
+  loading: LoadingProgressbarComponent,
+  error: ErrorIndicatorComponent,
+})
 
 export default {
   name: "ListViewComponent",
-  components: { ProductTemplate },
+  components: {
+    JumbotronComponent,
+    ...loadWidgets(lazyComponents,"components/list-view-component/components/"),
+    ModalWindow
+  },
   props: {
     service: {
       required: true,
@@ -26,7 +38,7 @@ export default {
     },
     template: {
       type: String,
-      default: "products",
+      default: "products-template",
     },
   },
   data() {

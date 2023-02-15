@@ -18,7 +18,7 @@
         </v-col>
       </v-row>
       <!--  ListViewComponent single-responsible component    -->
-      <list-view-component service="products" template="products" />
+      <list-view-component service="products" template="products-template" />
     </v-container>
   </div>
 </template>
