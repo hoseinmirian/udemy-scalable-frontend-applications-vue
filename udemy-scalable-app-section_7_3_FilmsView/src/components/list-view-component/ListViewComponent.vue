@@ -3,8 +3,8 @@
   <div>
     <div v-if="!loading">
       <component :is="template" :data="data" />
-      <modal-window v-if="false" :data="data" />
       <jumbotron-component/>
+      <modal-window v-if="showModalComponent" :data="data" />
     </div>
   </div>
 </template>
@@ -19,10 +19,13 @@ const lazyComponents = ["products-template","users-template"]
 // add as much as you want different template component. one of them based on the template prop always loads lazily
 
 const ModalWindow = () => ({
-  component: import('@/components/list-view-component/components/products-template.vue'),
+  component: import('@/components/carousel-component/carousel-component.vue'),
   loading: LoadingProgressbarComponent,
   error: ErrorIndicatorComponent,
+  delay:200,
+  // timeout:1 to get error
 })
+// it can be checked on very slow internet using firefox or chrome dev tool
 
 export default {
   name: "ListViewComponent",
@@ -45,6 +48,7 @@ export default {
     return {
       data: [],
       loading: true,
+      showModalComponent:false
     };
   },
   async created() {
