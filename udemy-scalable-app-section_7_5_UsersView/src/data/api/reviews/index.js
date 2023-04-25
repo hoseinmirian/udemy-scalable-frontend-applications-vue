@@ -19,7 +19,7 @@ const deleteOne = async (id, config) => {
 }
 
 const createOne = async (config) => {
-    return await Factory.deleteOne(model, config);
+    return await Factory.createOne(model, config);
 }
 
 export default {
